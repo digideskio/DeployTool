@@ -1,0 +1,133 @@
+# <% domain = "hakushu.io" %>
+# <% server_addr = "hakushu.io" %>
+
+configs:
+  domain: <%= domain %>
+
+  # APP CODE
+  branch: master
+  repo:   git@bitbucket.org:hakushu-publishung/hakushu.git
+
+  shared_uploads: public/uploads
+  skip_assets_precompile: false
+  app_secret: 23192770ade94e026d89e0e57e53ca86a23ddc750c3d3b5f2ef4f4d453c4de17081cf514f93076c29cc819af2f6e2a9d12fd01b575bd837dbb965925b67ecb0c
+
+  deploy_to: /home/rails/hakushu.io
+  local_backups_dir: ~/DUMPS
+  keep_releases: 3
+
+  web_server: unicorn
+
+  tools:
+    redis:        true
+    sidekiq:      true
+    whenever:     true
+    new_relic:    true
+    rails_config: true
+    sphinx:       false
+
+  rvm:
+    ruby: ruby-2.2-head
+    gemset: cap3
+    # gem_version: 2.4.0
+
+  nginx:
+    ssl: false
+
+  ssl:
+    type: comodo_positive_ssl
+    cert_name: 'hakushu_io.crt'
+    pkey_name: 'hakushu_io.key'
+
+  unicorn:
+    socket_name: hakushu_io_production
+    workers: 3
+
+  sphinx:
+    port: 9500
+
+  new_relic:
+    app_name: HAKUSHU_IO
+    key:  XXXXXXXXXXXXXXXXXXXXXXXXXX
+
+  redis:
+    port: 6450
+    host: localhost
+    namespace: hakushu_io_production
+
+  whenever:
+    namespace: hakushu_io_production
+
+  sidekiq:
+    namespace: hakushu_io_production
+
+  defaults:
+    ssh: &ssh_defaults
+      password:
+      auth_methods:
+        - publickey
+        - password
+      forward_agent: true
+
+  role:
+    sudo:
+      address: <%= server_addr %>
+      ssh:
+        user: root
+        <<: *ssh_defaults
+
+    app:
+      address: <%= server_addr %>
+
+      ssh:
+        <<: *ssh_defaults
+        user: rails
+
+  db:
+    host:     localhost
+    adapter:  mysql2
+    username: rails
+    name:     hakushu_io_production
+    password: XXXXXXXXXXXXXX
+    encoding: utf8
+    pool:     30
+
+  mailer:
+    service: smtp
+    host: 'https://hakushu.io'
+
+    sandmail:
+      location:  '/usr/sbin/sendmail'
+      arguments: '-i -t'
+
+    smtp:
+      default:
+        user_name: 'no-reply@hakushu.io'
+        password:  'XXXXXXXXXXXX'
+
+        authentication: plain
+        address: 'smtp.gmail.com'
+        domain:  'gmail.com'
+        port:    587
+
+  oauth:
+    facebook:
+      app_id:     052479726352572
+      app_secret: fe285219345a924cf0233dcfa992c165
+
+    twitter:
+      app_id: 6kR8RhbxOYhJ6kgxdqhfwOYhJ
+      app_secret: ckREUJXIOxKYAzbG2ZPZ8urOxKepMKgCBocnEfRq0j
+
+    google_oauth2:
+      app_id: '127873462545-qt7jluff900nnai4gle9qft12l4nkgdb.apps.googleusercontent.com'
+      app_secret: 'poKBjVv9-_FU45A4nyYTygUe'
+
+    vkontakte:
+      app_id:     4992342
+      app_secret: xPSsCkBlxdlYueTUTUWo
+
+    odnoklassniki:
+      app_id: 1093872982
+      app_secret: 744C2DC1CB7241A7D53B30C7
+      app_public: ICEABABABABCBAMPO

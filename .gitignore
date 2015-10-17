@@ -1,0 +1,25 @@
+# Settings
+settings/production.yml
+settings/stage.yml
+
+# Logs
+######################
+*.log
+
+# Ruby Env
+######################
+.ruby-gemset
+.ruby-version
+
+# OS generated files
+######################
+._*
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# SSL files
+SSL_certs/comodo_positive_ssl
